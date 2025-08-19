@@ -67,7 +67,7 @@ jobs:
       run: |
         chmod +x build.sh
         if [ "$RUNNER_OS" = "Linux" ]; then
-          conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
+          sudo conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
           source build/conanbuild.sh
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake
           cmake --build build -j$(nproc)
