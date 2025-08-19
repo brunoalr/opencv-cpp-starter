@@ -47,6 +47,7 @@ jobs:
 
     - name: Get Conan home directory
       id: conan-home
+      shell: bash
       run: |
         echo "path=$(conan config home)" >> $GITHUB_OUTPUT
 
