@@ -1,0 +1,70 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          # Latest 2 Ubuntu versions
+          - os: ubuntu-latest
+            name: Ubuntu Latest
+          - os: ubuntu-24.04
+            name: Ubuntu 24.04
+          # Latest 2 macOS versions
+          - os: macos-latest
+            name: macOS Latest
+          - os: macos-14
+            name: macOS 14
+          # Latest 2 Windows versions
+          - os: windows-latest
+            name: Windows Latest
+          - os: windows-2022
+            name: Windows 2022
+
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.name }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Conan
+      run: |
+        python -m pip install --upgrade pip
+        pip install conan
+
+    - name: Configure Conan
+      run: |
+        conan profile detect
+
+    - name: Build project
+      run: |
+        chmod +x build.sh
+        ./build.sh
+
+    - name: Test executable
+      run: |
+        cd build
+        ./bin/opencv_cpp_starter
+        ls -la *.png
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: build-${{ matrix.name }}
+        path: |
+          build/
+          *.png
+        retention-days: 7
