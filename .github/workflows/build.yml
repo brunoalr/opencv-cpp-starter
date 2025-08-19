@@ -45,6 +45,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install conan
 
+    - name: Get Conan home directory
+      id: conan-home
+      run: |
+        echo "path=$(conan config home)" >> $GITHUB_OUTPUT
+
+    - name: Cache Conan packages
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.conan-home.outputs.path }}
+        key: conan-${{ runner.os }}-${{ hashFiles('conanfile.txt') }}
+        restore-keys: |
+          conan-${{ runner.os }}-
+
     - name: Configure Conan with system package manager
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04'
       run: |
