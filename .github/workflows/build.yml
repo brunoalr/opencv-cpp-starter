@@ -15,7 +15,7 @@ jobs:
           # Latest 2 Ubuntu versions with containers
           - os: ubuntu-latest
             name: Ubuntu Latest
-            container: ubuntu:22.04
+            container: ubuntu:24.04
           - os: ubuntu-24.04
             name: Ubuntu 24.04
             container: ubuntu:24.04
