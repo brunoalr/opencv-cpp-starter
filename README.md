@@ -47,7 +47,7 @@ source build/conanbuild.sh
 
 3. Configure with CMake:
 ```bash
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake
 ```
 
 4. Build the project:
@@ -101,6 +101,7 @@ The project uses Conan for dependency management with the following configuratio
 - **Profile**: Uses Conan's default profile (auto-detects system settings)
 - **Build Strategy**: Hybrid approach using prebuilt binaries when available, building from source when needed
 - **Build System**: Uses Ninja for fast, parallel builds
+- **CMake Integration**: Uses Conan's CMakeToolchain for automatic path and toolchain setup
 
 ### Key Files
 
