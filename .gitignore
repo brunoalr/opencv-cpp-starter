@@ -1,0 +1,85 @@
+# Build directories
+build/
+cmake-build-*/
+out/
+Debug/
+Release/
+x64/
+x86/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# OpenCV specific
+*.avi
+*.mp4
+*.mov
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tiff
+*.tif
+# Uncomment the line above if you don't want to track image files
+# Keep hello.png for now as it might be part of the project
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# Backup files
+*.bak
+*.backup
