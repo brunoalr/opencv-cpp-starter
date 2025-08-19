@@ -70,14 +70,14 @@ jobs:
         if [ "$RUNNER_OS" = "Linux" ]; then
           # For Linux, install system packages first, then run conan without sudo
           sudo apt-get update && sudo apt-get install -y build-essential cmake ninja-build
-          conan profile detect
+          conan profile detect --force
           conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
           source build/conanbuild.sh
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake
           cmake --build build -j$(nproc)
         elif [ "$RUNNER_OS" = "Windows" ]; then
           # Windows doesn't need sudo, just run conan directly
-          conan profile detect
+          conan profile detect --force
           conan install . --output-folder=build --build=missing
           source build/conanbuild.sh
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake
