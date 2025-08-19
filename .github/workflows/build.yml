@@ -58,21 +58,21 @@ jobs:
         restore-keys: |
           conan-${{ runner.os }}-
 
-    - name: Configure Conan with system package manager
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04'
-      run: |
-        conan profile detect
-        conan config set tools.system.package_manager:mode=install
-
     - name: Configure Conan
-      if: matrix.os != 'ubuntu-latest' && matrix.os != 'ubuntu-24.04'
       run: |
         conan profile detect
 
     - name: Build project
       run: |
         chmod +x build.sh
-        ./build.sh
+        if [ "$RUNNER_OS" = "Linux" ]; then
+          conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
+          source build/conanbuild.sh
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake
+          cmake --build build -j$(nproc)
+        else
+          ./build.sh
+        fi
         echo "Build completed. Checking build directory:"
         ls -la build/ || echo "Build directory not found"
         ls -la build/bin/ || echo "Bin directory not found"
