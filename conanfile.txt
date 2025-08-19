@@ -9,3 +9,6 @@ ninja/1.13.1
 [generators]
 CMakeDeps
 CMakeToolchain
+
+[options]
+opencv/*:with_ffmpeg=False
