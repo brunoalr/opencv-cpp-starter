@@ -64,15 +64,23 @@ jobs:
         conan profile detect
 
     - name: Build project
+      shell: bash
       run: |
         chmod +x build.sh
         if [ "$RUNNER_OS" = "Linux" ]; then
-          # Use full path to conan with sudo
+          # Use full path to conan with sudo for Linux
           sudo $(which conan) install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
           source build/conanbuild.sh
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake
           cmake --build build -j$(nproc)
+        elif [ "$RUNNER_OS" = "Windows" ]; then
+          # Windows doesn't need sudo, just run conan directly
+          conan install . --output-folder=build --build=missing
+          source build/conanbuild.sh
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake
+          cmake --build build -j$(nproc)
         else
+          # macOS and others use the build script
           ./build.sh
         fi
         echo "Build completed. Checking build directory:"
