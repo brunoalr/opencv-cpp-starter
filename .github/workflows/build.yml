@@ -42,6 +42,9 @@ jobs:
       with:
         xmake-version: latest
 
+    - name: Install dependencies
+      run: xrepo install -y opencv libavif
+
     - name: Cache xmake packages
       uses: actions/cache@v4
       with:
