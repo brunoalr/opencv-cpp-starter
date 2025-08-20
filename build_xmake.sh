@@ -21,6 +21,10 @@ if [ "$1" = "clean" ]; then
     exit 0
 fi
 
+# Install required packages
+echo "Installing required packages..."
+xrepo install -y opencv libavif
+
 # Configure and build
 echo "Configuring project..."
 xmake config
