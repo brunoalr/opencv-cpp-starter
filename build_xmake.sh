@@ -30,7 +30,11 @@ echo "Configuring project..."
 xmake config
 
 echo "Building project..."
-xmake build -j$(nproc)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    xmake build -j$(sysctl -n hw.ncpu)
+else
+    xmake build -j$(nproc)
+fi
 
 echo "Build completed successfully!"
 echo "Executable location: build/xmake/bin/opencv_cpp_starter"
