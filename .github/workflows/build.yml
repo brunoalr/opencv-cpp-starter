@@ -51,7 +51,6 @@ jobs:
         key: ${{ matrix.os }}-xmake-${{ hashFiles('xmake.lua') }}
         restore-keys: |
           ${{ matrix.os }}-xmake-
-          ${{ runner.os }}-xmake-
 
     - name: Install dependencies
       run: xrepo install -y -v opencv libavif
