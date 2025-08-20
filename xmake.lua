@@ -1,5 +1,5 @@
 set_project("opencv_cpp_starter")
-set_languages("c++17")
+set_languages("c++20")
 
 add_requires("opencv", "libavif")
 
