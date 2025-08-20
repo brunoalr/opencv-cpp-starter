@@ -42,10 +42,20 @@ jobs:
       with:
         xmake-version: latest
 
+    - name: Create ccache directories
+      run: |
+        mkdir -p ~/.ccache
+        mkdir -p ~/.cache/ccache
+
     - name: Setup ccache
-      uses: hendrikmuhs/ccache-action@63069e3931dedbf3b63792097479563182fe70d1
+      uses: actions/cache@v4
       with:
+        path: |
+          ~/.ccache
+          ~/.cache/ccache
         key: ${{ matrix.os }}-ccache-${{ hashFiles('xmake.lua') }}
+        restore-keys: |
+          ${{ matrix.os }}-ccache-
 
     - name: Cache xmake packages
       uses: actions/cache@v4
