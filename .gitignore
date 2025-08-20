@@ -7,6 +7,10 @@ Release/
 x64/
 x86/
 
+# xmake build directory and cache
+build/xmake/
+.xmake/
+
 # CMake generated files
 CMakeCache.txt
 CMakeFiles/

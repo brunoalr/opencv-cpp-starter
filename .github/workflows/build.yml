@@ -1,0 +1,71 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Windows latest 2 versions
+          - os: windows-2025
+            name: "Windows Server 2025"
+          - os: windows-2022
+            name: "Windows Server 2022"
+          
+          # Ubuntu latest 2 versions
+          - os: ubuntu-24.04
+            name: "Ubuntu 24.04"
+          - os: ubuntu-22.04
+            name: "Ubuntu 22.04"
+          
+          # macOS latest 2 versions
+          - os: macos-15
+            name: "macOS 15 (Sequoia)"
+          - os: macos-14
+            name: "macOS 14 (Sonoma)"
+
+    name: Build on ${{ matrix.name }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install xmake
+      uses: xmake-io/github-action-setup-xmake@v1
+      with:
+        xmake-version: latest
+
+    - name: Cache xmake packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.xmake
+          ~/AppData/Local/.xmake
+        key: ${{ runner.os }}-xmake-${{ hashFiles('xmake.lua') }}
+        restore-keys: |
+          ${{ runner.os }}-xmake-
+
+    - name: Configure project
+      run: xmake config
+
+    - name: Build project
+      run: xmake build
+
+    - name: Run tests
+      run: xmake run opencv_cpp_starter
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: opencv_cpp_starter-${{ matrix.os }}
+        path: |
+          build/
+          hello.png
+        retention-days: 7
