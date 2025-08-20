@@ -74,6 +74,7 @@ jobs:
       run: xmake config
 
     - name: Build project
+      shell: bash
       run: |
         if [[ "$RUNNER_OS" == "macOS" ]]; then
           xmake build -j$(sysctl -n hw.ncpu)
