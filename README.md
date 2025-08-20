@@ -1,5 +1,7 @@
 # OpenCV C++ Starter
 
+> **Disclaimer**: This project was vibe coded using [Cursor](https://cursor.sh), an AI-powered code editor.
+
 A simple C++ project template for getting started with OpenCV.
 
 ## Prerequisites
