@@ -42,20 +42,10 @@ jobs:
       with:
         xmake-version: latest
 
-    - name: Create ccache directories
-      run: |
-        mkdir -p ~/.ccache
-        mkdir -p ~/.cache/ccache
-
     - name: Setup ccache
-      uses: actions/cache@v4
+      uses: hendrikmuhs/ccache-action@63069e3931dedbf3b63792097479563182fe70d1
       with:
-        path: |
-          ~/.ccache
-          ~/.cache/ccache
         key: ${{ matrix.os }}-ccache-${{ hashFiles('xmake.lua') }}
-        restore-keys: |
-          ${{ matrix.os }}-ccache-
 
     - name: Cache xmake packages
       uses: actions/cache@v4
@@ -74,13 +64,7 @@ jobs:
       run: xmake config
 
     - name: Build project
-      shell: bash
-      run: |
-        if [[ "$RUNNER_OS" == "macOS" ]]; then
-          xmake build -j$(sysctl -n hw.ncpu)
-        else
-          xmake build -j$(nproc)
-        fi
+      run: xmake build
 
     - name: Run tests
       run: xmake run opencv_cpp_starter
