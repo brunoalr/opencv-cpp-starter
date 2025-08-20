@@ -103,7 +103,7 @@ opencv-cpp-starter/
 
 - **macOS**: OpenCV installed via Homebrew should be found automatically. If using MacPorts, you may need to set `CMAKE_PREFIX_PATH`.
 - **Linux**: System-installed OpenCV should be found automatically. For custom installations, set `OpenCV_DIR` to the cmake directory.
-- **Windows**: 
+- **Windows**:
   - For manual installation, set `OpenCV_DIR` environment variable to point to the build directory (e.g., `C:\opencv\build`)
   - Add OpenCV bin directory to your PATH environment variable
 
