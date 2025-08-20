@@ -42,9 +42,6 @@ jobs:
       with:
         xmake-version: latest
 
-    - name: Install dependencies
-      run: xrepo install -y -v opencv libavif
-
     - name: Cache xmake packages
       uses: actions/cache@v4
       with:
@@ -55,6 +52,9 @@ jobs:
         restore-keys: |
           ${{ matrix.os }}-xmake-
           ${{ runner.os }}-xmake-
+
+    - name: Install dependencies
+      run: xrepo install -y -v opencv libavif
 
     - name: Configure project
       run: xmake config
