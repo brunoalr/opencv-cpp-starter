@@ -42,6 +42,16 @@ jobs:
       with:
         xmake-version: latest
 
+    - name: Setup ccache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.ccache
+          ~/.cache/ccache
+        key: ${{ matrix.os }}-ccache-${{ hashFiles('xmake.lua') }}
+        restore-keys: |
+          ${{ matrix.os }}-ccache-
+
     - name: Cache xmake packages
       uses: actions/cache@v4
       with:
