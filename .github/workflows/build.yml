@@ -51,8 +51,9 @@ jobs:
         path: |
           ~/.xmake
           ~/AppData/Local/.xmake
-        key: ${{ runner.os }}-xmake-${{ hashFiles('xmake.lua') }}
+        key: ${{ matrix.os }}-xmake-${{ hashFiles('xmake.lua') }}
         restore-keys: |
+          ${{ matrix.os }}-xmake-
           ${{ runner.os }}-xmake-
 
     - name: Configure project
