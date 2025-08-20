@@ -30,7 +30,7 @@ echo "Configuring project..."
 xmake config
 
 echo "Building project..."
-xmake build
+xmake build -j$(nproc)
 
 echo "Build completed successfully!"
 echo "Executable location: build/xmake/bin/opencv_cpp_starter"

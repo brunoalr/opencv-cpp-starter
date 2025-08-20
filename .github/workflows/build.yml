@@ -69,7 +69,7 @@ jobs:
       run: xmake config
 
     - name: Build project
-      run: xmake build
+      run: xmake build -j$(nproc)
 
     - name: Run tests
       run: xmake run opencv_cpp_starter
