@@ -33,10 +33,9 @@ echo "Building project..."
 xmake build
 
 echo "Build completed successfully!"
-echo "Executable location: build/xmake/bin/opencv_cpp_starter"
 
 # Run the executable if requested
 if [ "$1" = "run" ]; then
     echo "Running executable..."
-    ./build/xmake/bin/opencv_cpp_starter
+    xmake run
 fi
