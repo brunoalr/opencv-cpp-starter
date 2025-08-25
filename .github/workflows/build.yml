@@ -82,7 +82,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: opencv_cpp_starter-${{ matrix.os }}
-        path: |
-          build/
-          hello.png
+        path: build/
         retention-days: 7
