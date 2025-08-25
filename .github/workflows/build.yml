@@ -78,17 +78,6 @@ jobs:
         # Run the application to test it works
         ./build_xmake.py run
 
-    - name: List files for debugging
-      run: |
-        echo "Current directory:"
-        pwd
-        echo "Files in current directory:"
-        ls -la
-        echo "Files in build directory:"
-        ls -la build/ || echo "build directory not found"
-        echo "PNG files:"
-        find . -name "*.png" || echo "No PNG files found"
-
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
