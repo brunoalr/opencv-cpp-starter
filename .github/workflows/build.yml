@@ -67,17 +67,16 @@ jobs:
         restore-keys: |
           ${{ matrix.os }}-xmake-
 
-    - name: Install dependencies
-      run: xrepo install -y -v opencv libavif
+    - name: Make build script executable
+      run: chmod +x build_xmake.sh
 
-    - name: Configure project
-      run: xmake config
-
-    - name: Build project
-      run: xmake build
-
-    - name: Run tests
-      run: xmake run opencv_cpp_starter
+    - name: Build and test using build script
+      run: |
+        # Build the project
+        ./build_xmake.sh
+        
+        # Run the application to test it works
+        ./build_xmake.sh run
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
