@@ -9,6 +9,7 @@ import subprocess
 import sys
 import shutil
 import os
+import argparse
 
 
 def run_command(command, check=True, capture_output=False):
@@ -73,16 +74,34 @@ def run_executable():
 
 def main():
     """Main function."""
+    parser = argparse.ArgumentParser(
+        description="Build OpenCV C++ Starter project with xmake",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s              Build the project
+  %(prog)s run          Build and run the application
+  %(prog)s clean        Clean previous build
+        """
+    )
+    
+    parser.add_argument(
+        'action',
+        nargs='?',
+        default='build',
+        choices=['build', 'run', 'clean'],
+        help='Action to perform (default: build)'
+    )
+    
+    args = parser.parse_args()
+    
     print("Building OpenCV C++ Starter with xmake...")
     
     # Check if xmake is installed
     check_xmake()
     
-    # Parse command line arguments
-    args = sys.argv[1:] if len(sys.argv) > 1 else []
-    
     # Handle clean command
-    if args and args[0] == "clean":
+    if args.action == "clean":
         clean_build()
         return
     
@@ -96,7 +115,7 @@ def main():
     print("Build completed successfully!")
     
     # Run the executable if requested
-    if args and args[0] == "run":
+    if args.action == "run":
         run_executable()
 
 
