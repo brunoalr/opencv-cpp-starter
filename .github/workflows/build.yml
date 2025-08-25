@@ -68,15 +68,15 @@ jobs:
           ${{ matrix.os }}-xmake-
 
     - name: Make build script executable
-      run: chmod +x build_xmake.sh
+      run: chmod +x build_xmake.py
 
     - name: Build and test using build script
       run: |
         # Build the project
-        ./build_xmake.sh
+        ./build_xmake.py
         
         # Run the application to test it works
-        ./build_xmake.sh run
+        ./build_xmake.py run
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
